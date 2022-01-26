@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Image slider concept</title>
+</head>
+<style>
+  .slider {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+
+  }
+
+  .slider-container {
+
+    width: 100%;
+
+
+  }
+
+  .slider .image-slider {
+    display: none;
+    width: 100%;
+
+
+  }
+
+  .slider .image-slider.active {
+    display: block;
+    transition: 0.5s;
+
+  }
+
+  .slider .image-slider img {
+    width: 100%;
+  }
+
+  .slider-buttons {
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    background-color: rgba(236, 236, 236, 0.5);
+    border: none;
+    font-size: 1.5em;
+    color: #383737;
+  }
+
+  .slider-buttons.prev {
+    left: 0%;
+    padding-right: 8px;
+  }
+
+  .slider-buttons.next {
+    right: 0%;
+    padding-left: 8px;
+  }
+</style>
+
+<body>
+  <div class="slider">
+    <div class="slider-container">
+      <div class="image-slider">
+        <img src="image/1.jpg" />
+      </div>
+      <div class="image-slider">
+        <img src="image/2.jpg" />
+      </div>
+      <div class="image-slider">
+        <img src="image/3.jpg" />
+      </div>
+    </div>
+    <button onClick="showPrev()" class="slider-buttons prev">&lt;</button>
+    <button onClick="showNext()" class="slider-buttons next">&gt;</button>
+  </div>
+
+</body>
+<script>
+  var currentImageIndex = 0;
+  var allImages = document.getElementsByClassName("image-slider");
+  var noOfImages = allImages.length;
+  var timeInterval = 1000;
+
+  showImage(currentImageIndex);
+
+  function showNext() {
+    currentImageIndex++;
+    if (currentImageIndex > noOfImages - 1) {
+      currentImageIndex = 0;
+    }
+    showImage(currentImageIndex);
+  }
+  function showPrev() {
+    currentImageIndex--;
+    if (currentImageIndex < 0) {
+      currentImageIndex = noOfImages - 1;
+    }
+    showImage(currentImageIndex);
+  }
+
+  function showImage(pic) {
+
+    for (let i = 0; i < noOfImages; i++) {
+      allImages[i].className = "image-slider";
+    }
+    document.getElementsByClassName("image-slider")[pic].className = "image-slider active";
+  }
+  setInterval(() => { showRandomImage() }, timeInterval);
+
+  function showRandomImage() {
+    let random = Math.floor(Math.random() * noOfImages);
+    showImage(random);
+  }
+</script>
+
+</html>
